@@ -1,0 +1,605 @@
+/**
+ * PDF Tools - Global Styles
+ * Premium SaaS Design System
+ * Shared layout and components for all tools
+ */
+
+/* ========================================
+   CSS VARIABLES - Design System
+   ======================================== */
+:root {
+    /* Colors */
+    --primary-color: #dc3545;
+    --primary-hover: #c82333;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    
+    /* Gradients */
+    --gradient-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --gradient-primary: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    
+    /* Neutral Colors */
+    --gray-50: #f8f9fa;
+    --gray-100: #f1f3f5;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.15);
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    
+    /* Spacing */
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    
+    /* Layout */
+    --header-height: 70px;
+    --footer-height: auto;
+}
+
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--gradient-bg);
+    color: var(--gray-900);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   HEADER (GLOBAL - NEVER CHANGES)
+   ======================================== */
+.app-header {
+    background: white;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: var(--header-height);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+    padding: 0 var(--spacing-lg);
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.logo-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.logo-text {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin: 0;
+}
+
+.header-actions button {
+    color: var(--gray-700);
+    text-decoration: none;
+}
+
+/* ========================================
+   MAIN CONTAINER (70/30 SPLIT)
+   ======================================== */
+.main-container {
+    flex: 1;
+    padding: var(--spacing-lg) 0;
+}
+
+.main-container .container-fluid {
+    height: 100%;
+}
+
+.main-container .row {
+    min-height: calc(100vh - var(--header-height) - 100px);
+}
+
+/* ========================================
+   LEFT PANEL - MAIN TOOL AREA (70%)
+   ======================================== */
+.main-tool-panel {
+    padding: 0 var(--spacing-lg) 0 var(--spacing-xl);
+}
+
+.tool-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-xl);
+    min-height: 600px;
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tool Content Common Elements */
+.tool-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.tool-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-sm);
+}
+
+.tool-description {
+    font-size: 1.1rem;
+    color: var(--gray-600);
+    margin-bottom: 0;
+}
+
+/* Upload Area (Common for most tools) */
+.upload-area {
+    border: 3px dashed var(--gray-300);
+    border-radius: var(--radius-lg);
+    padding: 60px 40px;
+    text-align: center;
+    background: var(--gray-50);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: var(--spacing-xl) 0;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background: #fff5f5;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.upload-area.drag-over {
+    border-color: var(--primary-color);
+    background: #ffe5e5;
+    border-style: solid;
+    transform: scale(1.02);
+}
+
+.upload-icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.upload-text {
+    font-size: 1.25rem;
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-sm);
+}
+
+.upload-hint {
+    font-size: 0.95rem;
+    color: var(--gray-500);
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.btn-primary-custom {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    padding: 14px 32px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Progress/Status Section */
+.status-section {
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+}
+
+.processing-spinner {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+/* Results Section */
+.results-section {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--gray-200);
+    margin: var(--spacing-lg) 0;
+}
+
+/* ========================================
+   RIGHT PANEL - TOOLS SIDEBAR (30%)
+   ======================================== */
+.tools-sidebar {
+    background: white;
+    border-left: 1px solid var(--gray-200);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    overflow-y: auto;
+    max-height: calc(100vh - var(--header-height) - 40px);
+    position: sticky;
+    top: calc(var(--header-height) + 20px);
+}
+
+.sidebar-content {
+    height: 100%;
+}
+
+.sidebar-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-xs);
+}
+
+.sidebar-subtitle {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Tools List */
+.tools-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+/* Tool Card */
+.tool-card {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    background: white;
+    border: 2px solid var(--gray-200);
+    text-decoration: none;
+    color: var(--gray-900);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.tool-card:hover {
+    border-color: var(--primary-color);
+    background: var(--gray-50);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+    color: var(--gray-900);
+}
+
+.tool-card.active {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+    box-shadow: var(--shadow-md);
+}
+
+.tool-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-sm);
+    color: white;
+    font-size: 1.5rem;
+    margin-right: var(--spacing-md);
+    flex-shrink: 0;
+}
+
+.tool-card.active .tool-icon {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.tool-info {
+    flex: 1;
+}
+
+.tool-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin: 0 0 4px 0;
+}
+
+.tool-description {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    margin: 0;
+}
+
+.tool-arrow {
+    color: var(--gray-400);
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+    margin-left: var(--spacing-sm);
+}
+
+.tool-card:hover .tool-arrow {
+    transform: translateX(4px);
+    color: var(--primary-color);
+}
+
+/* ========================================
+   FOOTER (GLOBAL - NEVER CHANGES)
+   ======================================== */
+.app-footer {
+    background: white;
+    border-top: 1px solid var(--gray-200);
+    padding: var(--spacing-xl) 0;
+    margin-top: var(--spacing-xl);
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.security-notice {
+    font-size: 1.05rem;
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+    display: inline-block;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.footer-copyright {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+}
+
+.footer-copyright p {
+    margin: 0;
+}
+
+/* ========================================
+   ADSENSE STYLING
+   ======================================== */
+.adsense-container {
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    text-align: center;
+    min-height: 100px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablet (65/35 split) */
+@media (max-width: 1199px) {
+    .main-tool-panel {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .tools-sidebar {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+}
+
+/* Mobile (Sidebar becomes toggle menu) */
+@media (max-width: 991px) {
+    .tools-sidebar {
+        position: fixed;
+        top: var(--header-height);
+        right: -100%;
+        width: 320px;
+        height: calc(100vh - var(--header-height));
+        z-index: 999;
+        transition: right 0.3s ease;
+        border-left: none;
+        box-shadow: var(--shadow-xl);
+        max-height: none;
+    }
+    
+    .tools-sidebar.show {
+        right: 0;
+    }
+    
+    .main-tool-panel {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .tool-content {
+        padding: var(--spacing-lg);
+    }
+    
+    /* Mobile Overlay */
+    .sidebar-overlay {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        height: calc(100vh - var(--header-height));
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        display: none;
+    }
+    
+    .sidebar-overlay.show {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .tool-title {
+        font-size: 1.75rem;
+    }
+    
+    .upload-area {
+        padding: 40px 20px;
+    }
+    
+    .upload-icon {
+        font-size: 3rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-buttons .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-content {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .tool-content {
+        padding: var(--spacing-md);
+    }
+    
+    .tool-card {
+        padding: var(--spacing-sm);
+    }
+    
+    .tool-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+    
+    .tool-name {
+        font-size: 0.95rem;
+    }
+    
+    .tool-description {
+        font-size: 0.8rem;
+    }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card-premium {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg);
+    transition: all 0.3s ease;
+}
+
+.card-premium:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Smooth transitions for all interactive elements */
+a, button, .tool-card, .upload-area {
+    transition: all 0.2s ease;
+}
