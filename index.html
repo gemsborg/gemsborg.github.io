@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online PDF compressor - compress PDF files in your browser with no upload limits">
+    <title>Compress PDF - Free Online PDF Compressor</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- PDF-Lib library from CDN -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX"
+         crossorigin="anonymous"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-file-earmark-pdf-fill text-danger fs-3 me-2"></i>
+                <span class="fw-bold">PDF Compressor</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <!-- Main Content Column -->
+                <div class="col-lg-9">
+            
+            <!-- Step 1: Upload Section -->
+            <div id="uploadSection" class="step-section">
+                <div class="text-center mb-4">
+                    <h1 class="display-5 fw-bold mb-3">Compress PDF files</h1>
+                    <p class="lead text-muted">Reduce file size while optimizing for maximal PDF quality.</p>
+                </div>
+
+                <div class="upload-container">
+                    <div class="upload-box" id="uploadBox">
+                        <input 
+                            type="file" 
+                            id="fileInput" 
+                            accept=".pdf,application/pdf" 
+                            class="d-none"
+                            aria-label="Choose PDF file"
+                        >
+                        
+                        <div class="upload-content">
+                            <i class="bi bi-cloud-arrow-up upload-icon"></i>
+                            <button class="btn btn-danger btn-lg px-5 py-3 mb-3" id="selectBtn">
+                                Select PDF files
+                            </button>
+                            <p class="text-muted mb-0">or drop PDFs here</p>
+                            <small class="text-muted d-block mt-2">Maximum file size: 30 MB</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AdSense Ad - Below Upload Box -->
+                <div class="adsense-container mt-4">
+                    <!-- Horizontal Display Ad -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+                         data-ad-slot="YYYYYYYYYY"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
+
+                <!-- Features Section -->
+                <div class="row mt-5 g-4">
+                    <div class="col-md-4">
+                        <div class="feature-card text-center">
+                            <i class="bi bi-shield-check feature-icon text-success"></i>
+                            <h5 class="mt-3">100% Secure</h5>
+                            <p class="text-muted small">Files are processed locally in your browser</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card text-center">
+                            <i class="bi bi-infinity feature-icon text-primary"></i>
+                            <h5 class="mt-3">No Limits</h5>
+                            <p class="text-muted small">Compress as many files as you want</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card text-center">
+                            <i class="bi bi-lightning-charge feature-icon text-warning"></i>
+                            <h5 class="mt-3">Fast Processing</h5>
+                            <p class="text-muted small">Quick compression with optimal quality</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: File Preview Section -->
+            <div id="previewSection" class="step-section d-none">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold mb-3">Ready to compress</h2>
+                    <p class="text-muted">Review your file and start compression</p>
+                </div>
+
+                <div class="file-preview-card">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap">
+                        <div class="d-flex align-items-center mb-3 mb-md-0">
+                            <i class="bi bi-file-earmark-pdf-fill text-danger fs-1 me-3"></i>
+                            <div>
+                                <h5 class="mb-1" id="previewFileName">document.pdf</h5>
+                                <p class="mb-0 text-muted small" id="previewFileSize">0 MB</p>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-outline-secondary me-2" id="cancelBtn">
+                                <i class="bi bi-x-circle me-2"></i>Cancel
+                            </button>
+                            <button class="btn btn-danger" id="compressBtn">
+                                <i class="bi bi-file-zip me-2"></i>Compress PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Processing Section -->
+            <div id="processingSection" class="step-section d-none">
+                <div class="text-center">
+                    <div class="processing-animation mb-4">
+                        <div class="spinner-border text-danger" role="status" style="width: 4rem; height: 4rem;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <h2 class="fw-bold mb-3">Compressing your PDF...</h2>
+                    <p class="text-muted" id="processingText">Please wait while we optimize your file</p>
+                    
+                    <!-- Progress bar -->
+                    <div class="progress-container mt-4">
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" 
+                                 role="progressbar" 
+                                 style="width: 100%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Results Section -->
+            <div id="resultsSection" class="step-section d-none">
+                <div class="text-center mb-4">
+                    <div class="success-checkmark mb-4">
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                    </div>
+                    <h2 class="fw-bold mb-3">Your PDF is compressed!</h2>
+                    <p class="text-muted">File has been optimized successfully</p>
+                </div>
+
+                <!-- Size comparison card -->
+                <div class="comparison-card">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-md-5">
+                            <div class="size-box">
+                                <small class="text-muted d-block mb-2">ORIGINAL SIZE</small>
+                                <h3 class="mb-0 fw-bold" id="originalSize">-</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <i class="bi bi-arrow-right fs-1 text-muted d-none d-md-block"></i>
+                            <i class="bi bi-arrow-down fs-1 text-muted d-md-none"></i>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="size-box">
+                                <small class="text-muted d-block mb-2">COMPRESSED SIZE</small>
+                                <h3 class="mb-0 fw-bold text-success" id="compressedSize">-</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Compression stats -->
+                    <div class="compression-badge mt-4">
+                        <i class="bi bi-graph-down-arrow me-2"></i>
+                        <span id="compressionPercent">File optimized</span>
+                    </div>
+                </div>
+
+                <!-- AdSense Ad - Before Download -->
+                <div class="adsense-container mt-4 mb-3">
+                    <!-- Horizontal Display Ad -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+                         data-ad-slot="YYYYYYYYYY"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="d-flex gap-3 justify-content-center mt-4 flex-wrap">
+                    <button class="btn btn-danger btn-lg px-5" id="downloadBtn">
+                        <i class="bi bi-download me-2"></i>Download
+                    </button>
+                    <button class="btn btn-outline-secondary btn-lg" id="compressAnotherBtn">
+                        <i class="bi bi-arrow-clockwise me-2"></i>Compress another
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Section -->
+            <div id="errorSection" class="step-section d-none">
+                <div class="text-center">
+                    <div class="error-icon mb-4">
+                        <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+                    </div>
+                    <h2 class="fw-bold mb-3">Something went wrong</h2>
+                    <div class="alert alert-warning" role="alert" id="errorMessage">
+                        An error occurred while processing your file.
+                    </div>
+                    <button class="btn btn-danger" id="tryAgainBtn">
+                        <i class="bi bi-arrow-clockwise me-2"></i>Try Again
+                    </button>
+                </div>
+            </div>
+
+                </div>
+                <!-- End Main Content Column -->
+
+                <!-- Sidebar Column - AdSense (Desktop Only) -->
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sidebar-sticky">
+                        <!-- AdSense Vertical Ad -->
+                        <div class="adsense-container mb-4">
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+                                 data-ad-slot="ZZZZZZZZZZ"
+                                 data-ad-format="vertical"
+                                 data-full-width-responsive="false"></ins>
+                        </div>
+
+                        <!-- Info Card -->
+                        <div class="info-card">
+                            <h6 class="fw-bold mb-3">Why Compress PDFs?</h6>
+                            <ul class="small text-muted ps-3">
+                                <li>Faster email sending</li>
+                                <li>Less storage space</li>
+                                <li>Quicker uploads</li>
+                                <li>Better performance</li>
+                            </ul>
+                        </div>
+
+                        <!-- Another AdSense Ad -->
+                        <div class="adsense-container mt-4">
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+                                 data-ad-slot="ZZZZZZZZZZ"
+                                 data-ad-format="vertical"
+                                 data-full-width-responsive="false"></ins>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Sidebar Column -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5 py-4 bg-light border-top">
+        <div class="container text-center">
+            <p class="mb-2">
+                <i class="bi bi-shield-lock-fill text-success me-2"></i>
+                <strong>100% Private & Secure</strong> - All processing happens in your browser. Your files never leave your device.
+            </p>
+            <p class="text-muted small mb-0">
+                Powered by <a href="https://pdf-lib.js.org/" target="_blank" rel="noopener" class="text-decoration-none">PDF-Lib</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Initialize AdSense Ads -->
+    <script>
+        // Initialize AdSense ads when page loads
+        window.addEventListener('load', function() {
+            // Push all ads to AdSense
+            const ads = document.querySelectorAll('.adsbygoogle');
+            ads.forEach(ad => {
+                if (ad.getAttribute('data-ad-client')) {
+                    try {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    } catch (e) {
+                        console.error('AdSense error:', e);
+                    }
+                }
+            });
+        });
+    </script>
+    
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
